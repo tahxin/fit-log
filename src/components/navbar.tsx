@@ -4,18 +4,20 @@ import Logo from '@/../public/logo.png';
 
 const Navbar = () => {
     return (
-        <section className="flex justify-between items-center p-4 font-oswald">
-            <div>
-                <Image src={Logo} alt="Logo" width={100} height={100} />
-                <h2>FITLOG</h2>
+        <section className="flex justify-between items-center p-4">
+            <div className="flex items-center gap-2">
+                <Image src={Logo} alt="Logo" width={28} height={28} />
+                <h2 className="text-xl font-oswald">FITLOG</h2>
             </div>
-            <div>
-                <button>Workouts</button>
-                <button>My Plan</button>
+            <div className="flex gap-4">
+                <button className="rounded-full bg-[#1A2312] px-4 py-2 text-[#C2F800]">
+                    Workouts
+                </button>
+                <button className="btn btn-ghost">My Plan</button>
             </div>
-            <div>
-                <button>Plan 0</button>
-                <button>Saved 0</button>
+            <div className="flex gap-4">
+                <button className="btn btn-ghost">Plan 0</button>
+                <button className="btn btn-ghost">Saved 0</button>
             </div>
             
         </section>
