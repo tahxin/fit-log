@@ -6,7 +6,7 @@ import BannerImage from '@/../public/banner.png';
 const HeroSection = () => {
     return (
         <section className="p-4 md:p-8 lg:p-12 bg-black w-full">
-            <div className="flex flex-col md:flex-row items-center justify-between bg-[#1A1A1A] rounded-[32px] p-8 md:px-16 md:py-12 w-full max-w-7xl mx-auto relative">
+            <div className="flex flex-col md:flex-row items-center justify-between bg-[#1A1A1A] rounded-4xl p-8 md:px-16 md:py-12 w-full max-w-7xl mx-auto relative">
                 
                 <div className="flex-1 flex flex-col items-start mb-10 md:mb-0">
                     <p className="text-[#CCFF00] text-sm font-bold tracking-widest uppercase mb-4">
@@ -18,7 +18,7 @@ const HeroSection = () => {
                     </h1>
                     
                     <p className="text-gray-400 text-lg max-w-md mb-10 leading-relaxed">
-                        FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into today's plan, and watch the week's work add up.
+                        FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into today&apos;s plan, and watch the week&apos;s work add up.
                     </p>
                     
                     <Button>
@@ -26,7 +26,7 @@ const HeroSection = () => {
                     </Button>
                 </div>
                 
-                <div className="flex-1 flex justify-center md:justify-end items-center h-[400px]">
+                <div className="flex-1 flex justify-center md:justify-end items-center h-100">
                     <Image 
                         src={BannerImage} 
                         alt="Hero Image" 
