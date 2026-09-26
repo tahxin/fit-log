@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useWorkout } from '@/context/WorkoutContext';
 
 const Navbar = () => {
-    const { planCount, savedCount } = useWorkout();
+    const { planCount, savedCount, setActiveTab } = useWorkout();
     const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [prevPathname, setPrevPathname] = useState(pathname);
@@ -42,6 +42,7 @@ const Navbar = () => {
                     </Link>
                     <Link
                         href="/my-plan"
+                        onClick={() => setActiveTab('plan')}
                         className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
                             isMyPlan
                                 ? 'bg-[#1A2312] text-[#C2F800]'
@@ -53,13 +54,21 @@ const Navbar = () => {
                 </nav>
 
                 <div className="hidden md:flex items-center gap-4">
-                    <Link href="/my-plan?tab=plan" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                    <Link
+                        href="/my-plan?tab=plan"
+                        onClick={() => setActiveTab('plan')}
+                        className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
+                    >
                         <span>Plan</span>
                         <span suppressHydrationWarning className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {planCount}
                         </span>
                     </Link>
-                    <Link href="/my-plan?tab=saved" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                    <Link
+                        href="/my-plan?tab=saved"
+                        onClick={() => setActiveTab('saved')}
+                        className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors"
+                    >
                         <span>Saved</span>
                         <span suppressHydrationWarning className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {savedCount}
@@ -70,6 +79,7 @@ const Navbar = () => {
                 <div className="flex md:hidden items-center gap-3">
                     <Link
                         href="/my-plan?tab=plan"
+                        onClick={() => setActiveTab('plan')}
                         className="flex items-center gap-1.5 text-xs text-gray-300 hover:text-white"
                         aria-label="View Today's Plan"
                     >
@@ -80,6 +90,7 @@ const Navbar = () => {
                     </Link>
                     <Link
                         href="/my-plan?tab=saved"
+                        onClick={() => setActiveTab('saved')}
                         className="flex items-center gap-1.5 text-xs text-gray-300 hover:text-white"
                         aria-label="View Saved Workouts"
                     >
@@ -124,7 +135,10 @@ const Navbar = () => {
                     </Link>
                     <Link
                         href="/my-plan"
-                        onClick={() => setMobileMenuOpen(false)}
+                        onClick={() => {
+                            setActiveTab('plan');
+                            setMobileMenuOpen(false);
+                        }}
                         className={`block rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors ${
                             isMyPlan
                                 ? 'bg-[#1A2312] text-[#C2F800]'
@@ -137,7 +151,10 @@ const Navbar = () => {
                     <div className="pt-2 border-t border-neutral-800/80 flex items-center justify-around text-sm text-gray-300">
                         <Link
                             href="/my-plan?tab=plan"
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                                setActiveTab('plan');
+                                setMobileMenuOpen(false);
+                            }}
                             className="flex items-center gap-2 py-1 px-3 rounded-lg hover:bg-neutral-900"
                         >
                             <span>Today&apos;s Plan:</span>
@@ -147,7 +164,10 @@ const Navbar = () => {
                         </Link>
                         <Link
                             href="/my-plan?tab=saved"
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                                setActiveTab('saved');
+                                setMobileMenuOpen(false);
+                            }}
                             className="flex items-center gap-2 py-1 px-3 rounded-lg hover:bg-neutral-900"
                         >
                             <span>Saved:</span>

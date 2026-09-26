@@ -9,7 +9,6 @@ import Exercise from '@/types/workoutdatatypes';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-type Tab = 'plan' | 'saved';
 type SortKey = 'duration' | 'calories' | 'rating';
 
 function MyPlanContent() {
@@ -23,9 +22,10 @@ function MyPlanContent() {
     removeFromSaved,
     toggleComplete,
     isCompleted,
+    activeTab,
+    setActiveTab,
   } = useWorkout();
 
-  const [activeTab, setActiveTab] = useState<Tab>(() => (tabParam === 'saved' ? 'saved' : 'plan'));
   const [prevTabParam, setPrevTabParam] = useState(tabParam);
 
   if (prevTabParam !== tabParam) {

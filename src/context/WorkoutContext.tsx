@@ -7,6 +7,8 @@ interface WorkoutContextType {
   todayPlan: Exercise[];
   saved: Exercise[];
   completedIds: number[];
+  activeTab: 'plan' | 'saved';
+  setActiveTab: (tab: 'plan' | 'saved') => void;
   addToPlan: (exercise: Exercise) => boolean;
   removeFromPlan: (id: number) => void;
   saveForLater: (exercise: Exercise) => boolean;
@@ -49,6 +51,7 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
   const [completedIds, setCompletedIds] = useState<number[]>(() =>
     loadFromStorage<number[]>(STORAGE_KEY_COMPLETED, [])
   );
+  const [activeTab, setActiveTab] = useState<'plan' | 'saved'>('plan');
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY_PLAN, JSON.stringify(todayPlan));
@@ -131,6 +134,8 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
       todayPlan,
       saved,
       completedIds,
+      activeTab,
+      setActiveTab,
       addToPlan,
       removeFromPlan,
       saveForLater,
@@ -149,6 +154,8 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
       todayPlan,
       saved,
       completedIds,
+      activeTab,
+      setActiveTab,
       addToPlan,
       removeFromPlan,
       saveForLater,
