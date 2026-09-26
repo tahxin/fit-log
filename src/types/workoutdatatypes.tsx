@@ -1,4 +1,4 @@
-export interface Exercise {
+export default interface Exercise {
     id: number;
     name: string;
     image: string;
