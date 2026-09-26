@@ -1,0 +1,143 @@
+'use client';
+
+import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import Exercise from '@/types/workoutdatatypes';
+
+interface WorkoutContextType {
+  todayPlan: Exercise[];
+  saved: Exercise[];
+  completedIds: number[];
+  addToPlan: (exercise: Exercise) => boolean;
+  removeFromPlan: (id: number) => void;
+  saveForLater: (exercise: Exercise) => boolean;
+  removeFromSaved: (id: number) => void;
+  toggleComplete: (id: number) => void;
+  isInPlan: (id: number) => boolean;
+  isSaved: (id: number) => boolean;
+  isCompleted: (id: number) => boolean;
+  planCount: number;
+  savedCount: number;
+  totalMinutes: number;
+  totalCalories: number;
+}
+
+const WorkoutContext = createContext<WorkoutContextType | undefined>(undefined);
+
+const MAX_PLAN_SIZE = 5;
+
+export function WorkoutProvider({ children }: { children: React.ReactNode }) {
+  const [todayPlan, setTodayPlan] = useState<Exercise[]>([]);
+  const [saved, setSaved] = useState<Exercise[]>([]);
+  const [completedIds, setCompletedIds] = useState<number[]>([]);
+
+  const isInPlan = useCallback(
+    (id: number) => todayPlan.some((e) => e.id === id),
+    [todayPlan]
+  );
+
+  const isSaved = useCallback(
+    (id: number) => saved.some((e) => e.id === id),
+    [saved]
+  );
+
+  const isCompleted = useCallback(
+    (id: number) => completedIds.includes(id),
+    [completedIds]
+  );
+
+  const addToPlan = useCallback(
+    (exercise: Exercise): boolean => {
+      if (isInPlan(exercise.id)) return false;
+      if (todayPlan.length >= MAX_PLAN_SIZE) return false;
+      setTodayPlan((prev) => [...prev, exercise]);
+      return true;
+    },
+    [isInPlan, todayPlan.length]
+  );
+
+  const removeFromPlan = useCallback((id: number) => {
+    setTodayPlan((prev) => prev.filter((e) => e.id !== id));
+    setCompletedIds((prev) => prev.filter((cid) => cid !== id));
+  }, []);
+
+  const saveForLater = useCallback(
+    (exercise: Exercise): boolean => {
+      if (isSaved(exercise.id)) return false;
+      setSaved((prev) => [...prev, exercise]);
+      return true;
+    },
+    [isSaved]
+  );
+
+  const removeFromSaved = useCallback((id: number) => {
+    setSaved((prev) => prev.filter((e) => e.id !== id));
+  }, []);
+
+  const toggleComplete = useCallback((id: number) => {
+    setCompletedIds((prev) =>
+      prev.includes(id) ? prev.filter((cid) => cid !== id) : [...prev, id]
+    );
+  }, []);
+
+  const planCount = todayPlan.length;
+  const savedCount = saved.length;
+
+  const totalMinutes = useMemo(
+    () => todayPlan.reduce((sum, e) => sum + e.duration, 0),
+    [todayPlan]
+  );
+
+  const totalCalories = useMemo(
+    () => todayPlan.reduce((sum, e) => sum + e.caloriesBurned, 0),
+    [todayPlan]
+  );
+
+  const value = useMemo<WorkoutContextType>(
+    () => ({
+      todayPlan,
+      saved,
+      completedIds,
+      addToPlan,
+      removeFromPlan,
+      saveForLater,
+      removeFromSaved,
+      toggleComplete,
+      isInPlan,
+      isSaved,
+      isCompleted,
+      planCount,
+      savedCount,
+      totalMinutes,
+      totalCalories,
+    }),
+    [
+      todayPlan,
+      saved,
+      completedIds,
+      addToPlan,
+      removeFromPlan,
+      saveForLater,
+      removeFromSaved,
+      toggleComplete,
+      isInPlan,
+      isSaved,
+      isCompleted,
+      planCount,
+      savedCount,
+      totalMinutes,
+      totalCalories,
+    ]
+  );
+
+  return (
+    <WorkoutContext.Provider value={value}>{children}</WorkoutContext.Provider>
+  );
+}
+
+export function useWorkout(): WorkoutContextType {
+  const context = useContext(WorkoutContext);
+  if (!context) {
+    throw new Error('useWorkout must be used within a WorkoutProvider');
+  }
+  return context;
+}

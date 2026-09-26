@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import Button from './button';
 
 const HeroSection = () => {
     return (
@@ -13,16 +12,19 @@ const HeroSection = () => {
                     </p>
                     
                     <h1 className="text-white text-5xl md:text-6xl lg:text-7xl font-black uppercase leading-tight mb-6">
-                        TRAIN WITH INTENT.LOG<br />EVERY SET.
+                        TRAIN WITH INTENT.<br />LOG EVERY SET.
                     </h1>
                     
                     <p className="text-gray-400 text-lg max-w-md mb-10 leading-relaxed">
                         FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into today&apos;s plan, and watch the week&apos;s work add up.
                     </p>
                     
-                    <Button>
+                    <a
+                        href="#library"
+                        className="btn rounded-md font-bold bg-[#C2F800] px-5 py-2 text-[#000000] hover:bg-[#d4ff33] transition-colors"
+                    >
                         BROWSE WORKOUTS
-                    </Button>
+                    </a>
                 </div>
                 
                 <div className="flex-1 flex justify-center md:justify-end items-center h-100">
