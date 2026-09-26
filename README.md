@@ -40,7 +40,7 @@ Node.js 18+ and npm installed.
 
 ```bash
 # Clone the repository
-git clone [<repository-url>](https://github.com/tahxin/fit-log)
+git clone https://github.com/tahxin/fit-log
 cd fit-log
 
 # Install packages
