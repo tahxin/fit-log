@@ -17,7 +17,13 @@ function WorkOutCard(props: WorkoutCardTypes) {
     <Link href={`/workouts/${props.id}`} className="block">
       <div className="bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-lime-400/50 transition-colors cursor-pointer">
         <div className="relative w-full h-48">
-          <Image src={props.image} alt={props.title} fill className="object-cover" />
+          <Image
+            src={props.image}
+            alt={props.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-cover"
+          />
         </div>
 
         <div className="p-4">

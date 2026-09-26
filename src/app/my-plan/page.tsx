@@ -90,15 +90,15 @@ function MyPlanPage() {
       <div className="grid grid-cols-3 bg-neutral-900 border border-neutral-800 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 text-center sm:text-left gap-2 sm:gap-4">
         <div>
           <p className="text-gray-400 text-xs sm:text-sm mb-1">Exercises</p>
-          <p className="text-2xl sm:text-3xl font-black text-lime-400">{currentList.length}</p>
+          <p suppressHydrationWarning className="text-2xl sm:text-3xl font-black text-lime-400">{currentList.length}</p>
         </div>
         <div>
           <p className="text-gray-400 text-xs sm:text-sm mb-1">Minutes</p>
-          <p className="text-2xl sm:text-3xl font-black">{currentList.reduce((sum, e) => sum + e.duration, 0)}</p>
+          <p suppressHydrationWarning className="text-2xl sm:text-3xl font-black">{currentList.reduce((sum, e) => sum + e.duration, 0)}</p>
         </div>
         <div>
           <p className="text-gray-400 text-xs sm:text-sm mb-1">Calories</p>
-          <p className="text-2xl sm:text-3xl font-black">{currentList.reduce((sum, e) => sum + e.caloriesBurned, 0)}</p>
+          <p suppressHydrationWarning className="text-2xl sm:text-3xl font-black">{currentList.reduce((sum, e) => sum + e.caloriesBurned, 0)}</p>
         </div>
       </div>
 
@@ -185,6 +185,7 @@ function MyPlanPage() {
                       src={exercise.image}
                       alt={exercise.name}
                       fill
+                      sizes="80px"
                       className="object-cover"
                     />
                   </div>

@@ -103,6 +103,7 @@ export default function WorkOutDetailsPage() {
             src={exercise.image}
             alt={exercise.name}
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover rounded-2xl"
           />
         </div>

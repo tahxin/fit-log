@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Logo from '@/../public/logo.png';
 import Link from 'next/link';
@@ -11,14 +11,16 @@ const Navbar = () => {
     const { planCount, savedCount } = useWorkout();
     const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [prevPathname, setPrevPathname] = useState(pathname);
 
     const isWorkouts = pathname === '/' || pathname.startsWith('/workouts');
     const isMyPlan = pathname === '/my-plan';
 
-    // Close mobile menu on pathname change
-    useEffect(() => {
+    // Close mobile menu on pathname change without useEffect cascading render
+    if (prevPathname !== pathname) {
+        setPrevPathname(pathname);
         setMobileMenuOpen(false);
-    }, [pathname]);
+    }
 
     return (
         <header className="sticky top-0 z-50 w-full bg-black/80 backdrop-blur-md border-b border-neutral-800">
@@ -57,13 +59,13 @@ const Navbar = () => {
                 <div className="hidden md:flex items-center gap-4">
                     <Link href="/my-plan" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
                         <span>Plan</span>
-                        <span className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
+                        <span suppressHydrationWarning className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {planCount}
                         </span>
                     </Link>
                     <Link href="/my-plan" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
                         <span>Saved</span>
-                        <span className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
+                        <span suppressHydrationWarning className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {savedCount}
                         </span>
                     </Link>
@@ -77,7 +79,7 @@ const Navbar = () => {
                         aria-label="View Today's Plan"
                     >
                         <span className="hidden xs:inline">Plan</span>
-                        <span className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
+                        <span suppressHydrationWarning className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {planCount}
                         </span>
                     </Link>
@@ -87,7 +89,7 @@ const Navbar = () => {
                         aria-label="View Saved Workouts"
                     >
                         <span className="hidden xs:inline">Saved</span>
-                        <span className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
+                        <span suppressHydrationWarning className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {savedCount}
                         </span>
                     </Link>
@@ -146,7 +148,7 @@ const Navbar = () => {
                             className="flex items-center gap-2 py-1 px-3 rounded-lg hover:bg-neutral-900"
                         >
                             <span>Today&apos;s Plan:</span>
-                            <span className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
+                            <span suppressHydrationWarning className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                                 {planCount}
                             </span>
                         </Link>
@@ -156,7 +158,7 @@ const Navbar = () => {
                             className="flex items-center gap-2 py-1 px-3 rounded-lg hover:bg-neutral-900"
                         >
                             <span>Saved:</span>
-                            <span className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
+                            <span suppressHydrationWarning className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                                 {savedCount}
                             </span>
                         </Link>
