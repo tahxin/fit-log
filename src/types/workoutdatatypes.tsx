@@ -1,4 +1,4 @@
-export default interface Exercise {
+interface Exercise {
     id: number;
     name: string;
     image: string;
@@ -13,3 +13,5 @@ export default interface Exercise {
     description: string;
     instructions: string[];
 }
+
+export default Exercise;

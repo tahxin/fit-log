@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Logo from '@/../public/logo.png';
+import Link from 'next/link';
 
 const Navbar = () => {
     return (
@@ -13,7 +14,7 @@ const Navbar = () => {
                 <button className="rounded-full bg-[#1A2312] px-4 py-2 text-[#C2F800]">
                     Workouts
                 </button>
-                <button className="btn btn-ghost">My Plan</button>
+                <button className="btn btn-ghost"><Link href="/my-plan">My Plan</Link></button>
             </div>
             <div className="flex gap-4">
                 <button className="btn btn-ghost">Plan 0</button>

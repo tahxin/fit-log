@@ -1,12 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import Button from './button'; 
-import BannerImage from '@/../public/banner.png';
+import Button from './button';
 
 const HeroSection = () => {
     return (
-        <section className="p-4 md:p-8 lg:p-12 bg-black w-full">
-            <div className="flex flex-col md:flex-row items-center justify-between bg-[#1A1A1A] rounded-4xl p-8 md:px-16 md:py-12 w-full max-w-7xl mx-auto relative">
+        <section className="m-6 bg-black">
+            <div className="flex flex-col md:flex-row items-center justify-between bg-[#1A1A1A] rounded-4xl p-8 md:px-16 md:py-12 w-full relative">
                 
                 <div className="flex-1 flex flex-col items-start mb-10 md:mb-0">
                     <p className="text-[#CCFF00] text-sm font-bold tracking-widest uppercase mb-4">
@@ -28,7 +27,7 @@ const HeroSection = () => {
                 
                 <div className="flex-1 flex justify-center md:justify-end items-center h-100">
                     <Image 
-                        src={BannerImage} 
+                        src="/banner.png" 
                         alt="Hero Image" 
                         width={400} 
                         height={400}

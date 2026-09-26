@@ -16,7 +16,7 @@ const WorkOutCards = () => {
     }, []);
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="m-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {workouts.map((workout, index) => (
                 <WorkOutCard
                     key={index}
