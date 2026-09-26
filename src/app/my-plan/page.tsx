@@ -102,7 +102,7 @@ function MyPlanPage() {
         </div>
       </div>
 
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
         <div className="tabs tabs-boxed bg-neutral-900">
           <button
             className={`tab ${
@@ -126,17 +126,26 @@ function MyPlanPage() {
           </button>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-gray-400 text-sm">Sort By</span>
-          <select
-            className="select select-bordered bg-neutral-900 border-neutral-700"
-            value={sortKey}
-            onChange={(e) => setSortKey(e.target.value as SortKey)}
-          >
-            <option value="duration">Duration</option>
-            <option value="calories">Calories</option>
-            <option value="rating">Rating</option>
-          </select>
+        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+          <input
+            type="text"
+            placeholder="Search by name or tag..."
+            className="input input-bordered bg-neutral-900 border-neutral-700 text-sm flex-1 md:w-60"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <div className="flex items-center gap-2">
+            <span className="text-gray-400 text-sm">Sort By</span>
+            <select
+              className="select select-bordered bg-neutral-900 border-neutral-700"
+              value={sortKey}
+              onChange={(e) => setSortKey(e.target.value as SortKey)}
+            >
+              <option value="duration">Duration</option>
+              <option value="calories">Calories</option>
+              <option value="rating">Rating</option>
+            </select>
+          </div>
         </div>
       </div>
 
