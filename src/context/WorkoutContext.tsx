@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react';
 import Exercise from '@/types/workoutdatatypes';
 
 interface WorkoutContextType {
@@ -15,6 +15,7 @@ interface WorkoutContextType {
   isInPlan: (id: number) => boolean;
   isSaved: (id: number) => boolean;
   isCompleted: (id: number) => boolean;
+  isPlanFull: boolean;
   planCount: number;
   savedCount: number;
   totalMinutes: number;
@@ -24,11 +25,42 @@ interface WorkoutContextType {
 const WorkoutContext = createContext<WorkoutContextType | undefined>(undefined);
 
 const MAX_PLAN_SIZE = 5;
+const STORAGE_KEY_PLAN = 'fitlog-today-plan';
+const STORAGE_KEY_SAVED = 'fitlog-saved';
+const STORAGE_KEY_COMPLETED = 'fitlog-completed';
+
+function loadFromStorage<T>(key: string, fallback: T): T {
+  if (typeof window === 'undefined') return fallback;
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
 
 export function WorkoutProvider({ children }: { children: React.ReactNode }) {
-  const [todayPlan, setTodayPlan] = useState<Exercise[]>([]);
-  const [saved, setSaved] = useState<Exercise[]>([]);
-  const [completedIds, setCompletedIds] = useState<number[]>([]);
+  const [todayPlan, setTodayPlan] = useState<Exercise[]>(() =>
+    loadFromStorage<Exercise[]>(STORAGE_KEY_PLAN, [])
+  );
+  const [saved, setSaved] = useState<Exercise[]>(() =>
+    loadFromStorage<Exercise[]>(STORAGE_KEY_SAVED, [])
+  );
+  const [completedIds, setCompletedIds] = useState<number[]>(() =>
+    loadFromStorage<number[]>(STORAGE_KEY_COMPLETED, [])
+  );
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_PLAN, JSON.stringify(todayPlan));
+  }, [todayPlan]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_SAVED, JSON.stringify(saved));
+  }, [saved]);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY_COMPLETED, JSON.stringify(completedIds));
+  }, [completedIds]);
 
   const isInPlan = useCallback(
     (id: number) => todayPlan.some((e) => e.id === id),
@@ -44,6 +76,8 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
     (id: number) => completedIds.includes(id),
     [completedIds]
   );
+
+  const isPlanFull = todayPlan.length >= MAX_PLAN_SIZE;
 
   const addToPlan = useCallback(
     (exercise: Exercise): boolean => {
@@ -105,6 +139,7 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
       isInPlan,
       isSaved,
       isCompleted,
+      isPlanFull,
       planCount,
       savedCount,
       totalMinutes,
@@ -122,6 +157,7 @@ export function WorkoutProvider({ children }: { children: React.ReactNode }) {
       isInPlan,
       isSaved,
       isCompleted,
+      isPlanFull,
       planCount,
       savedCount,
       totalMinutes,

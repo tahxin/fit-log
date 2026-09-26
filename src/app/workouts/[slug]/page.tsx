@@ -13,7 +13,7 @@ export default function WorkOutDetailsPage() {
   const slug = params.slug as string;
   const [exercise, setExercise] = useState<ExerciseType | null>(null);
   const [loading, setLoading] = useState(true);
-  const { addToPlan, saveForLater, isInPlan, isSaved } = useWorkout();
+  const { addToPlan, saveForLater, isInPlan, isSaved, isPlanFull } = useWorkout();
 
   useEffect(() => {
     fetch(`https://api.abcz.workers.dev/api/fitlog/${slug}`)
@@ -166,13 +166,14 @@ export default function WorkOutDetailsPage() {
           <div className="flex gap-4">
             <button
               className={`btn rounded-full ${
-                alreadyInPlan
+                alreadyInPlan || isPlanFull
                   ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
                   : 'bg-lime-400 text-black hover:bg-lime-300'
               }`}
               onClick={handleAddToPlan}
+              disabled={alreadyInPlan || isPlanFull}
             >
-              {alreadyInPlan ? 'Already in plan' : "Add to today's plan"}
+              {alreadyInPlan ? 'Already in plan' : isPlanFull ? 'Plan is full (5/5)' : "Add to today's plan"}
             </button>
             <button
               className={`btn rounded-full ${

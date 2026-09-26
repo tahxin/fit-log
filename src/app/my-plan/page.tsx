@@ -23,11 +23,21 @@ function MyPlanPage() {
 
   const [activeTab, setActiveTab] = useState<Tab>('plan');
   const [sortKey, setSortKey] = useState<SortKey>('duration');
+  const [search, setSearch] = useState('');
 
   const currentList = activeTab === 'plan' ? todayPlan : saved;
 
   const sortedList = useMemo(() => {
-    const copy = [...currentList];
+    let filtered = currentList;
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      filtered = currentList.filter(
+        (e) =>
+          e.name.toLowerCase().includes(q) ||
+          e.muscleGroups.some((g) => g.toLowerCase().includes(q))
+      );
+    }
+    const copy = [...filtered];
     copy.sort((a, b) => {
       switch (sortKey) {
         case 'duration':
@@ -41,7 +51,7 @@ function MyPlanPage() {
       }
     });
     return copy;
-  }, [currentList, sortKey]);
+  }, [currentList, sortKey, search]);
 
   const handleRemove = (exercise: Exercise) => {
     if (activeTab === 'plan') {
