@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useWorkout } from '@/context/WorkoutContext';
 import Exercise from '@/types/workoutdatatypes';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,7 +12,10 @@ import 'react-toastify/dist/ReactToastify.css';
 type Tab = 'plan' | 'saved';
 type SortKey = 'duration' | 'calories' | 'rating';
 
-function MyPlanPage() {
+function MyPlanContent() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab');
+
   const {
     todayPlan,
     saved,
@@ -21,7 +25,17 @@ function MyPlanPage() {
     isCompleted,
   } = useWorkout();
 
-  const [activeTab, setActiveTab] = useState<Tab>('plan');
+  const [activeTab, setActiveTab] = useState<Tab>(() => (tabParam === 'saved' ? 'saved' : 'plan'));
+  const [prevTabParam, setPrevTabParam] = useState(tabParam);
+
+  if (prevTabParam !== tabParam) {
+    setPrevTabParam(tabParam);
+    if (tabParam === 'saved') {
+      setActiveTab('saved');
+    } else if (tabParam === 'plan') {
+      setActiveTab('plan');
+    }
+  }
   const [sortKey, setSortKey] = useState<SortKey>('duration');
   const [search, setSearch] = useState('');
 
@@ -199,7 +213,6 @@ function MyPlanPage() {
                       >
                         {exercise.name}
                       </h3>
-                      {/* Mobile delete button (visible only on small screens) */}
                       <button
                         className="sm:hidden btn btn-ghost btn-xs text-neutral-500 hover:text-red-400"
                         onClick={() => handleRemove(exercise)}
@@ -219,7 +232,6 @@ function MyPlanPage() {
                   </div>
                 </div>
 
-                {/* Action buttons */}
                 <div className="flex items-center gap-2 pt-2 sm:pt-0 border-t border-neutral-800/80 sm:border-t-0 shrink-0 justify-end">
                   <Link
                     href={`/workouts/${exercise.id}`}
@@ -241,7 +253,6 @@ function MyPlanPage() {
                     </button>
                   )}
 
-                  {/* Desktop delete button (hidden on mobile, shown on sm+) */}
                   <button
                     className="hidden sm:inline-flex btn btn-ghost btn-sm text-neutral-500 hover:text-red-400"
                     onClick={() => handleRemove(exercise)}
@@ -259,4 +270,17 @@ function MyPlanPage() {
   );
 }
 
-export default MyPlanPage;
+export default function MyPlanPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex flex-col items-center justify-center py-40">
+          <span className="loading loading-spinner loading-lg text-lime-400"></span>
+          <p className="text-gray-400 mt-4 text-lg">Loading plan…</p>
+        </div>
+      }
+    >
+      <MyPlanContent />
+    </Suspense>
+  );
+}

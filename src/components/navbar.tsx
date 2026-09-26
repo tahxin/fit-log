@@ -16,7 +16,6 @@ const Navbar = () => {
     const isWorkouts = pathname === '/' || pathname.startsWith('/workouts');
     const isMyPlan = pathname === '/my-plan';
 
-    // Close mobile menu on pathname change without useEffect cascading render
     if (prevPathname !== pathname) {
         setPrevPathname(pathname);
         setMobileMenuOpen(false);
@@ -25,13 +24,11 @@ const Navbar = () => {
     return (
         <header className="sticky top-0 z-50 w-full bg-black/80 backdrop-blur-md border-b border-neutral-800">
             <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
-                {/* Logo */}
                 <Link href="/" className="flex items-center gap-2 shrink-0">
                     <Image src={Logo} alt="Logo" width={28} height={28} priority />
                     <h2 className="text-xl font-bold font-oswald tracking-wide text-white">FITLOG</h2>
                 </Link>
 
-                {/* Desktop Nav Links */}
                 <nav className="hidden md:flex items-center gap-2">
                     <Link
                         href="/"
@@ -55,15 +52,14 @@ const Navbar = () => {
                     </Link>
                 </nav>
 
-                {/* Desktop Badges */}
                 <div className="hidden md:flex items-center gap-4">
-                    <Link href="/my-plan" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                    <Link href="/my-plan?tab=plan" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
                         <span>Plan</span>
                         <span suppressHydrationWarning className="bg-[#C2F800] text-black text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {planCount}
                         </span>
                     </Link>
-                    <Link href="/my-plan" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
+                    <Link href="/my-plan?tab=saved" className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition-colors">
                         <span>Saved</span>
                         <span suppressHydrationWarning className="border border-gray-500 text-gray-300 text-xs font-bold rounded-full w-6 h-6 inline-flex items-center justify-center">
                             {savedCount}
@@ -71,10 +67,9 @@ const Navbar = () => {
                     </Link>
                 </div>
 
-                {/* Mobile Header Right: compact badges + hamburger button */}
                 <div className="flex md:hidden items-center gap-3">
                     <Link
-                        href="/my-plan"
+                        href="/my-plan?tab=plan"
                         className="flex items-center gap-1.5 text-xs text-gray-300 hover:text-white"
                         aria-label="View Today's Plan"
                     >
@@ -84,7 +79,7 @@ const Navbar = () => {
                         </span>
                     </Link>
                     <Link
-                        href="/my-plan"
+                        href="/my-plan?tab=saved"
                         className="flex items-center gap-1.5 text-xs text-gray-300 hover:text-white"
                         aria-label="View Saved Workouts"
                     >
@@ -94,7 +89,6 @@ const Navbar = () => {
                         </span>
                     </Link>
 
-                    {/* Hamburger Button */}
                     <button
                         type="button"
                         onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -115,7 +109,6 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile Dropdown Menu */}
             {mobileMenuOpen && (
                 <div className="md:hidden border-t border-neutral-800 bg-neutral-950/95 px-4 pt-3 pb-5 space-y-2 animate-fadeIn">
                     <Link
@@ -143,7 +136,7 @@ const Navbar = () => {
                     
                     <div className="pt-2 border-t border-neutral-800/80 flex items-center justify-around text-sm text-gray-300">
                         <Link
-                            href="/my-plan"
+                            href="/my-plan?tab=plan"
                             onClick={() => setMobileMenuOpen(false)}
                             className="flex items-center gap-2 py-1 px-3 rounded-lg hover:bg-neutral-900"
                         >
@@ -153,7 +146,7 @@ const Navbar = () => {
                             </span>
                         </Link>
                         <Link
-                            href="/my-plan"
+                            href="/my-plan?tab=saved"
                             onClick={() => setMobileMenuOpen(false)}
                             className="flex items-center gap-2 py-1 px-3 rounded-lg hover:bg-neutral-900"
                         >
