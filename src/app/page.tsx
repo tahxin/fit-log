@@ -4,15 +4,15 @@ import WorkOutCards from "@/components/workout/workoutcards";
 
 export default function Home() {
   return (
-    <div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       <Herosection />
-      <div id="library" className="text-left p-4 md:p-8 lg:p-12 scroll-mt-4">
-        <h2 className="text-2xl font-bold mb-1">THE LIBRARY</h2>
-        <p className="text-gray-400">
+      <div id="library" className="text-left py-8 scroll-mt-20">
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-1 text-white">THE LIBRARY</h2>
+        <p className="text-gray-400 text-sm sm:text-base">
           Twelve lifts covering every major muscle group.
         </p>
       </div>
-      <div className="m-6">
+      <div>
         <WorkOutCards />
       </div>
     </div>

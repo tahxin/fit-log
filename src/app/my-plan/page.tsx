@@ -79,33 +79,33 @@ function MyPlanPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-8 lg:p-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       <ToastContainer theme="dark" position="top-right" />
 
-      <h1 className="text-4xl font-black uppercase mb-2">My Plan</h1>
-      <p className="text-gray-400 mb-8">
+      <h1 className="text-2xl sm:text-4xl font-black uppercase mb-2">My Plan</h1>
+      <p className="text-gray-400 text-sm sm:text-base mb-6 sm:mb-8">
         Cap of five lifts for today. Finish them, then load more.
       </p>
 
-      <div className="grid grid-cols-3 bg-neutral-900 border border-neutral-800 rounded-2xl p-6 mb-8">
+      <div className="grid grid-cols-3 bg-neutral-900 border border-neutral-800 rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 text-center sm:text-left gap-2 sm:gap-4">
         <div>
-          <p className="text-gray-400 text-sm mb-1">Exercises</p>
-          <p className="text-3xl font-black text-lime-400">{currentList.length}</p>
+          <p className="text-gray-400 text-xs sm:text-sm mb-1">Exercises</p>
+          <p className="text-2xl sm:text-3xl font-black text-lime-400">{currentList.length}</p>
         </div>
         <div>
-          <p className="text-gray-400 text-sm mb-1">Minutes</p>
-          <p className="text-3xl font-black">{currentList.reduce((sum, e) => sum + e.duration, 0)}</p>
+          <p className="text-gray-400 text-xs sm:text-sm mb-1">Minutes</p>
+          <p className="text-2xl sm:text-3xl font-black">{currentList.reduce((sum, e) => sum + e.duration, 0)}</p>
         </div>
         <div>
-          <p className="text-gray-400 text-sm mb-1">Calories</p>
-          <p className="text-3xl font-black">{currentList.reduce((sum, e) => sum + e.caloriesBurned, 0)}</p>
+          <p className="text-gray-400 text-xs sm:text-sm mb-1">Calories</p>
+          <p className="text-2xl sm:text-3xl font-black">{currentList.reduce((sum, e) => sum + e.caloriesBurned, 0)}</p>
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
-        <div className="tabs tabs-boxed bg-neutral-900">
+      <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 mb-6">
+        <div className="tabs tabs-boxed bg-neutral-900 self-start">
           <button
-            className={`tab ${
+            className={`tab text-xs sm:text-sm ${
               activeTab === 'plan'
                 ? 'bg-white text-black font-bold'
                 : 'text-gray-400'
@@ -115,7 +115,7 @@ function MyPlanPage() {
             Today&apos;s Plan
           </button>
           <button
-            className={`tab ${
+            className={`tab text-xs sm:text-sm ${
               activeTab === 'saved'
                 ? 'bg-white text-black font-bold'
                 : 'text-gray-400'
@@ -126,18 +126,18 @@ function MyPlanPage() {
           </button>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 w-full md:w-auto">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
           <input
             type="text"
             placeholder="Search by name or tag..."
-            className="input input-bordered bg-neutral-900 border-neutral-700 text-sm flex-1 md:w-60"
+            className="input input-bordered bg-neutral-900 border-neutral-700 text-sm w-full sm:w-60"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <div className="flex items-center gap-2">
-            <span className="text-gray-400 text-sm">Sort By</span>
+          <div className="flex items-center justify-between sm:justify-start gap-2">
+            <span className="text-gray-400 text-xs sm:text-sm shrink-0">Sort By</span>
             <select
-              className="select select-bordered bg-neutral-900 border-neutral-700"
+              className="select select-bordered bg-neutral-900 border-neutral-700 text-xs sm:text-sm flex-1 sm:flex-initial"
               value={sortKey}
               onChange={(e) => setSortKey(e.target.value as SortKey)}
             >
@@ -150,16 +150,16 @@ function MyPlanPage() {
       </div>
 
       {sortedList.length === 0 ? (
-        <div className="border border-neutral-800 rounded-2xl flex flex-col items-center justify-center py-24 text-center">
-          <h2 className="text-2xl font-black uppercase mb-2">
+        <div className="border border-neutral-800 rounded-2xl flex flex-col items-center justify-center py-16 sm:py-24 px-4 text-center">
+          <h2 className="text-xl sm:text-2xl font-black uppercase mb-2">
             Nothing Here Yet
           </h2>
-          <p className="text-gray-400 mb-6">
+          <p className="text-gray-400 text-sm sm:text-base mb-6 max-w-sm">
             Browse the library and add a lift to get today moving.
           </p>
           <Link
             href="/"
-            className="btn bg-lime-400 text-black rounded-full border-none"
+            className="btn bg-lime-400 text-black rounded-full border-none px-6"
           >
             Go to workouts
           </Link>
@@ -173,50 +173,63 @@ function MyPlanPage() {
             return (
               <div
                 key={exercise.id}
-                className={`flex items-center gap-4 bg-neutral-900 border rounded-2xl p-4 transition-all ${
+                className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-neutral-900 border rounded-2xl p-4 transition-all ${
                   completed
                     ? 'border-lime-400/40 opacity-60'
                     : 'border-neutral-800'
                 }`}
               >
-                <div className="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden">
-                  <Image
-                    src={exercise.image}
-                    alt={exercise.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0">
+                  <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-xl overflow-hidden">
+                    <Image
+                      src={exercise.image}
+                      alt={exercise.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
 
-                <div className="flex-1 min-w-0">
-                  <h3
-                    className={`text-lg font-bold uppercase ${
-                      completed ? 'line-through text-gray-500' : 'text-white'
-                    }`}
-                  >
-                    {exercise.name}
-                  </h3>
-                  <p className="text-neutral-400 text-sm">
-                    {exercise.equipment}
-                  </p>
-                  <div className="flex gap-4 text-neutral-300 text-sm mt-1">
-                    <span>⏱ {exercise.duration} min</span>
-                    <span>🔥 {exercise.caloriesBurned} kcal</span>
-                    <span>⭐ {exercise.rating}</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3
+                        className={`text-base sm:text-lg font-bold uppercase truncate ${
+                          completed ? 'line-through text-gray-500' : 'text-white'
+                        }`}
+                      >
+                        {exercise.name}
+                      </h3>
+                      {/* Mobile delete button (visible only on small screens) */}
+                      <button
+                        className="sm:hidden btn btn-ghost btn-xs text-neutral-500 hover:text-red-400"
+                        onClick={() => handleRemove(exercise)}
+                        aria-label="Remove"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    <p className="text-neutral-400 text-xs sm:text-sm">
+                      {exercise.equipment}
+                    </p>
+                    <div className="flex flex-wrap gap-x-3 gap-y-1 text-neutral-300 text-xs sm:text-sm mt-1">
+                      <span>⏱ {exercise.duration} min</span>
+                      <span>🔥 {exercise.caloriesBurned} kcal</span>
+                      <span>⭐ {exercise.rating}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                {/* Action buttons */}
+                <div className="flex items-center gap-2 pt-2 sm:pt-0 border-t border-neutral-800/80 sm:border-t-0 shrink-0 justify-end">
                   <Link
                     href={`/workouts/${exercise.id}`}
-                    className="btn btn-outline btn-sm rounded-full"
+                    className="btn btn-outline btn-xs sm:btn-sm rounded-full flex-1 sm:flex-initial"
                   >
                     View Details
                   </Link>
 
                   {activeTab === 'plan' && (
                     <button
-                      className={`btn btn-sm rounded-full ${
+                      className={`btn btn-xs sm:btn-sm rounded-full flex-1 sm:flex-initial ${
                         completed
                           ? 'bg-green-700 text-white border-green-700'
                           : 'bg-lime-400 text-black border-lime-400 hover:bg-lime-300'
@@ -227,8 +240,9 @@ function MyPlanPage() {
                     </button>
                   )}
 
+                  {/* Desktop delete button (hidden on mobile, shown on sm+) */}
                   <button
-                    className="btn btn-ghost btn-sm text-neutral-500 hover:text-red-400"
+                    className="hidden sm:inline-flex btn btn-ghost btn-sm text-neutral-500 hover:text-red-400"
                     onClick={() => handleRemove(exercise)}
                     aria-label="Remove"
                   >

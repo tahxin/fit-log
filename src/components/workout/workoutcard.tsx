@@ -21,7 +21,7 @@ function WorkOutCard(props: WorkoutCardTypes) {
         </div>
 
         <div className="p-4">
-          <div className="flex gap-2 mb-2">
+          <div className="flex flex-wrap gap-2 mb-2">
             {props.tags.map((tag, index) => (
               <span key={index} className="bg-lime-400 text-black text-xs font-bold px-3 py-1 rounded-full">
                 {tag}
@@ -34,7 +34,7 @@ function WorkOutCard(props: WorkoutCardTypes) {
 
           <hr className="border-neutral-800 my-3" />
 
-          <div className="flex gap-4 text-neutral-300 text-sm">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-neutral-300 text-xs sm:text-sm">
             <span>⏱ {props.duration}</span>
             <span>🔥 {props.calories}</span>
             <span>⭐ {props.rating}</span>

@@ -93,12 +93,12 @@ export default function WorkOutDetailsPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-4 md:p-8 lg:p-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
       <ToastContainer theme="dark" position="top-right" />
 
-      <div className="flex flex-col md:flex-row gap-10">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-10">
         
-        <div className="relative w-full md:w-1/2 h-96">
+        <div className="relative w-full md:w-1/2 h-64 sm:h-80 md:h-96 shrink-0">
           <Image
             src={exercise.image}
             alt={exercise.name}
@@ -108,14 +108,14 @@ export default function WorkOutDetailsPage() {
         </div>
 
         <div className="w-full md:w-1/2">
-          <h1 className="text-4xl font-black uppercase mb-4">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase mb-3 sm:mb-4">
             {exercise.name}
           </h1>
-          <p className="text-gray-400 mb-4">{exercise.description}</p>
+          <p className="text-gray-400 text-sm sm:text-base mb-4 leading-relaxed">{exercise.description}</p>
 
-          <div className="flex gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-6">
             {exercise.muscleGroups.map((tag, index) => (
-              <div key={index} className="badge badge-lg bg-lime-400 text-black font-bold uppercase">
+              <div key={index} className="badge badge-md sm:badge-lg bg-lime-400 text-black font-bold uppercase">
                 {tag}
               </div>
             ))}
@@ -125,47 +125,47 @@ export default function WorkOutDetailsPage() {
             <table className="table">
               <tbody>
                 <tr>
-                  <td className="text-gray-400">Equipment</td>
-                  <td className="text-right">{exercise.equipment}</td>
+                  <td className="text-gray-400 text-sm">Equipment</td>
+                  <td className="text-right text-sm">{exercise.equipment}</td>
                 </tr>
                 <tr>
-                  <td className="text-gray-400">Difficulty</td>
-                  <td className="text-right">{exercise.difficulty}</td>
+                  <td className="text-gray-400 text-sm">Difficulty</td>
+                  <td className="text-right text-sm">{exercise.difficulty}</td>
                 </tr>
                 <tr>
-                  <td className="text-gray-400">Sets</td>
-                  <td className="text-right">{exercise.sets}</td>
+                  <td className="text-gray-400 text-sm">Sets</td>
+                  <td className="text-right text-sm">{exercise.sets}</td>
                 </tr>
                 <tr>
-                  <td className="text-gray-400">Reps</td>
-                  <td className="text-right">{exercise.reps}</td>
+                  <td className="text-gray-400 text-sm">Reps</td>
+                  <td className="text-right text-sm">{exercise.reps}</td>
                 </tr>
                 <tr>
-                  <td className="text-gray-400">Duration</td>
-                  <td className="text-right">{exercise.duration} min</td>
+                  <td className="text-gray-400 text-sm">Duration</td>
+                  <td className="text-right text-sm">{exercise.duration} min</td>
                 </tr>
                 <tr>
-                  <td className="text-gray-400">Calories</td>
-                  <td className="text-right">{exercise.caloriesBurned} kcal</td>
+                  <td className="text-gray-400 text-sm">Calories</td>
+                  <td className="text-right text-sm">{exercise.caloriesBurned} kcal</td>
                 </tr>
                 <tr>
-                  <td className="text-gray-400">Rating</td>
-                  <td className="text-right">{exercise.rating}</td>
+                  <td className="text-gray-400 text-sm">Rating</td>
+                  <td className="text-right text-sm">{exercise.rating}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h2 className="text-xl font-bold uppercase mb-4">Instructions</h2>
-          <ol className="list-decimal list-inside text-gray-300 space-y-2 mb-8">
+          <h2 className="text-lg sm:text-xl font-bold uppercase mb-4">Instructions</h2>
+          <ol className="list-decimal list-inside text-gray-300 space-y-2 mb-8 text-sm sm:text-base">
             {exercise.instructions.map((step, index) => (
               <li key={index}>{step}</li>
             ))}
           </ol>
 
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
-              className={`btn rounded-full ${
+              className={`btn rounded-full w-full sm:w-auto ${
                 alreadyInPlan || isPlanFull
                   ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
                   : 'bg-lime-400 text-black hover:bg-lime-300'
@@ -176,7 +176,7 @@ export default function WorkOutDetailsPage() {
               {alreadyInPlan ? 'Already in plan' : isPlanFull ? 'Plan is full (5/5)' : "Add to today's plan"}
             </button>
             <button
-              className={`btn rounded-full ${
+              className={`btn rounded-full w-full sm:w-auto ${
                 alreadySaved
                   ? 'bg-neutral-700 text-neutral-400 cursor-not-allowed'
                   : 'btn-outline hover:bg-neutral-800'
