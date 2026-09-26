@@ -16,10 +16,10 @@ const Navbar = () => {
 
     return (
         <section className="flex justify-between items-center p-4">
-            <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
                 <Image src={Logo} alt="Logo" width={28} height={28} />
                 <h2 className="text-xl font-oswald">FITLOG</h2>
-            </div>
+            </Link>
             <div className="flex gap-4">
                 <Link
                     href="/"

@@ -19,10 +19,6 @@ function MyPlanPage() {
     removeFromSaved,
     toggleComplete,
     isCompleted,
-    planCount,
-    savedCount,
-    totalMinutes,
-    totalCalories,
   } = useWorkout();
 
   const [activeTab, setActiveTab] = useState<Tab>('plan');
@@ -84,15 +80,15 @@ function MyPlanPage() {
       <div className="grid grid-cols-3 bg-neutral-900 border border-neutral-800 rounded-2xl p-6 mb-8">
         <div>
           <p className="text-gray-400 text-sm mb-1">Exercises</p>
-          <p className="text-3xl font-black text-lime-400">{planCount}</p>
+          <p className="text-3xl font-black text-lime-400">{currentList.length}</p>
         </div>
         <div>
           <p className="text-gray-400 text-sm mb-1">Minutes</p>
-          <p className="text-3xl font-black">{totalMinutes}</p>
+          <p className="text-3xl font-black">{currentList.reduce((sum, e) => sum + e.duration, 0)}</p>
         </div>
         <div>
           <p className="text-gray-400 text-sm mb-1">Calories</p>
-          <p className="text-3xl font-black">{totalCalories}</p>
+          <p className="text-3xl font-black">{currentList.reduce((sum, e) => sum + e.caloriesBurned, 0)}</p>
         </div>
       </div>
 
