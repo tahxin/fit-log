@@ -90,7 +90,7 @@ src/
 - All Workouts: `GET https://api.abcz.workers.dev/api/fitlog`
 - Single Workout: `GET https://api.abcz.workers.dev/api/fitlog/:id`
 
-## 📝 License
+## License
 
 © 2026 FitLog — Workout Library. Train hard, log honest.
 
