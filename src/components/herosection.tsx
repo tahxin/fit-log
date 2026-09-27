@@ -4,18 +4,18 @@ import Image from 'next/image';
 const HeroSection = () => {
     return (
         <section className="w-full">
-            <div className="flex flex-col md:flex-row items-center justify-between bg-[#1A1A1A] rounded-3xl sm:rounded-4xl p-6 sm:p-8 md:px-14 md:py-12 w-full relative overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 lg:gap-12 bg-[#1A1A1A] rounded-3xl sm:rounded-4xl p-6 sm:p-8 md:p-12 lg:px-14 lg:py-14 w-full relative overflow-hidden">
                 
-                <div className="flex-1 flex flex-col items-start mb-8 md:mb-0 w-full">
+                <div className="flex flex-col items-start w-full">
                     <p className="text-[#CCFF00] text-xs sm:text-sm font-bold tracking-widest uppercase mb-3 sm:mb-4">
                         WORKOUT LIBRARY
                     </p>
                     
-                    <h1 className="text-white text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase leading-tight mb-4 sm:mb-6">
+                    <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-tight mb-4 sm:mb-6">
                         TRAIN WITH INTENT.<br />LOG EVERY SET.
                     </h1>
                     
-                    <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-md mb-6 sm:mb-8 leading-relaxed">
+                    <p className="text-gray-400 text-sm sm:text-base md:text-lg max-w-lg mb-6 sm:mb-8 leading-relaxed">
                         FitLog is a dark, no-nonsense gym companion: pick a lift, lock it into today&apos;s plan, and watch the week&apos;s work add up.
                     </p>
                     
@@ -27,13 +27,13 @@ const HeroSection = () => {
                     </a>
                 </div>
                 
-                <div className="flex-1 flex justify-center md:justify-end items-center w-full max-w-xs sm:max-w-sm md:max-w-md h-56 sm:h-72 md:h-96">
+                <div className="flex justify-center items-center w-full">
                     <Image 
                         src="/banner.png" 
                         alt="Hero Image" 
-                        width={400} 
-                        height={400}
-                        className="object-contain max-h-full w-auto" 
+                        width={500} 
+                        height={500}
+                        className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg h-auto object-contain" 
                         priority
                     />
                 </div>
